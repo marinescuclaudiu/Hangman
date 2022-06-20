@@ -1,0 +1,121 @@
+﻿<Window x:Class="Hangman.View.GameView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Hangman.ViewModel"
+        mc:Ignorable="d"
+        Title="Hangman" Height="900" Width="1600">
+    <Window.Background>
+        <SolidColorBrush Color="#279484"></SolidColorBrush>
+    </Window.Background>
+
+    <Window.DataContext>
+        <local:GameViewModel/>
+    </Window.DataContext>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="35*"/>
+            <ColumnDefinition Width="65*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35*"/>
+            <RowDefinition Height="14*"/>
+            <RowDefinition Height="14*"/>
+            <RowDefinition Height="14*"/>
+            <RowDefinition Height="23*"/>
+        </Grid.RowDefinitions>
+
+        <Menu Height="Auto" Width="Auto" VerticalAlignment="Top" Grid.ColumnSpan="2">
+            <MenuItem Header="File" FontSize="14" >
+                <MenuItem Header="New game" Click="EnableTimerNewGame_Click" Command="{Binding NewGameCommand}"/>
+                <MenuItem Header="Open game" Click="EnableTimerOpenGame_Click" Command="{Binding OpenGameCommand}"/>
+                <MenuItem Header="Save game" Command="{Binding SaveGameCommand}"/>
+                <MenuItem Header="Statistics" Command="{Binding ShowStatisticsCommand}"/>
+                <MenuItem Header="Exit" Click="Exit_Click"/>
+            </MenuItem>
+
+            <MenuItem Header="Categories" FontSize="14">
+                <MenuItem Header="All categories" IsCheckable="True" Click="ChangeCategory_Click" Command="{Binding ChangeCategoryCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Header}"/>
+                <MenuItem Header="Animals" IsCheckable="True" Click="ChangeCategory_Click" Command="{Binding ChangeCategoryCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Header}"/>
+                <MenuItem Header="Cars" IsCheckable="True" Click="ChangeCategory_Click" Command="{Binding ChangeCategoryCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Header}"/>
+                <MenuItem Header="Countries" IsCheckable="True" Click="ChangeCategory_Click" Command="{Binding ChangeCategoryCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Header}"/>
+                <MenuItem Header="Movies" IsCheckable="True" Click="ChangeCategory_Click" Command="{Binding ChangeCategoryCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Header}"/>
+            </MenuItem>
+
+            <MenuItem Header="Help" FontSize="14" DataContext="{Binding AboutDialog}">
+                <MenuItem Header="About" Command="{Binding Path=ShowAboutWindow}"/>
+            </MenuItem>
+
+        </Menu>
+
+        <StackPanel Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal">
+            <Button Width="45" Height="45" FontSize="20"  IsEnabled="{Binding LetterEnable[Q]}" Command="{Binding PressLetterComand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content}">Q</Button>
+            <Button Width="45" Height="45" Margin="10,0,0,0" FontSize="20" IsEnabled="{Binding LetterEnable[W]}" Command="{Binding PressLetterComand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content}">W</Button>
+            <Button Width="45" Height="45" Margin="10,0,0,0" FontSize="20" IsEnabled="{Binding LetterEnable[E]}" Command="{Binding PressLetterComand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content}">E</Button>
+            <Button Width="45" Height="45" Margin="10,0,0,0" FontSize="20" IsEnabled="{Binding LetterEnable[R]}" Command="{Binding PressLetterComand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content}">R</Button>
+            <Button Width="45" Height="45" Margin="10,0,0,0" FontSize="20" IsEnabled="{Binding LetterEnable[T]}" Command="{Binding PressLetterComand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content}">T</Button>
+            <Button Width="45" Height="45" Margin="10,0,0,0" FontSize="20" IsEnabled="{Binding LetterEnable[Y]}" Command="{Binding PressLetterComand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content}">Y</Button>
+            <Button Width="45" Height="45" Margin="10,0,0,0" FontSize="20" IsEnabled="{Binding LetterEnable[U]}" Command="{Binding PressLetterComand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content}">U</Button>
+            <Button Width="45" Height="45" Margin="10,0,0,0" FontSize="20" IsEnabled="{Binding LetterEnable[I]}" Command="{Binding PressLetterComand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content}">I</Button>
+            <Button Width="45" Height="45" Margin="10,0,0,0" FontSize="20" IsEnabled="{Binding LetterEnable[O]}" Command="{Binding PressLetterComand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content}">O</Button>
+            <Button Width="45" Height="45" Margin="10,0,0,0" FontSize="20" IsEnabled="{Binding LetterEnable[P]}" Command="{Binding PressLetterComand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content}">P</Button>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
+            <Button Width="45" Height="45" Margin="10,0,0,0" FontSize="20" IsEnabled="{Binding LetterEnable[A]}" Command="{Binding PressLetterComand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content}">A</Button>
+            <Button Width="45" Height="45" Margin="10,0,0,0" FontSize="20" IsEnabled="{Binding LetterEnable[S]}" Command="{Binding PressLetterComand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content}">S</Button>
+            <Button Width="45" Height="45" Margin="10,0,0,0" FontSize="20" IsEnabled="{Binding LetterEnable[D]}" Command="{Binding PressLetterComand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content}">D</Button>
+            <Button Width="45" Height="45" Margin="10,0,0,0" FontSize="20" IsEnabled="{Binding LetterEnable[F]}" Command="{Binding PressLetterComand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content}">F</Button>
+            <Button Width="45" Height="45" Margin="10,0,0,0" FontSize="20" IsEnabled="{Binding LetterEnable[G]}" Command="{Binding PressLetterComand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content}">G</Button>
+            <Button Width="45" Height="45" Margin="10,0,0,0" FontSize="20" IsEnabled="{Binding LetterEnable[H]}" Command="{Binding PressLetterComand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content}">H</Button>
+            <Button Width="45" Height="45" Margin="10,0,0,0" FontSize="20" IsEnabled="{Binding LetterEnable[J]}" Command="{Binding PressLetterComand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content}">J</Button>
+            <Button Width="45" Height="45" Margin="10,0,0,0" FontSize="20" IsEnabled="{Binding LetterEnable[K]}" Command="{Binding PressLetterComand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content}">K</Button>
+            <Button Width="45" Height="45" Margin="10,0,0,0" FontSize="20" IsEnabled="{Binding LetterEnable[L]}" Command="{Binding PressLetterComand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content}">L</Button>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Center" Orientation="Horizontal">
+            <Button Width="45" Height="45" Margin="10,0,0,0" FontSize="20" IsEnabled="{Binding LetterEnable[Z]}" Command="{Binding PressLetterComand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content}">Z</Button>
+            <Button Width="45" Height="45" Margin="10,0,0,0" FontSize="20" IsEnabled="{Binding LetterEnable[X]}" Command="{Binding PressLetterComand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content}">X</Button>
+            <Button Width="45" Height="45" Margin="10,0,0,0" FontSize="20" IsEnabled="{Binding LetterEnable[C]}" Command="{Binding PressLetterComand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content}">C</Button>
+            <Button Width="45" Height="45" Margin="10,0,0,0" FontSize="20" IsEnabled="{Binding LetterEnable[V]}" Command="{Binding PressLetterComand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content}">V</Button>
+            <Button Width="45" Height="45" Margin="10,0,0,0" FontSize="20" IsEnabled="{Binding LetterEnable[B]}" Command="{Binding PressLetterComand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content}">B</Button>
+            <Button Width="45" Height="45" Margin="10,0,0,0" FontSize="20" IsEnabled="{Binding LetterEnable[N]}" Command="{Binding PressLetterComand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content}">N</Button>
+            <Button Width="45" Height="45" Margin="10,0,0,0" FontSize="20" IsEnabled="{Binding LetterEnable[M]}" Command="{Binding PressLetterComand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content}">M</Button>
+        </StackPanel>
+
+        <Image Grid.Column="1"
+               HorizontalAlignment="Center" 
+               Width="400" Height="200"
+            Source="{Binding GameModel.HealthBarImage}"/>
+
+        <StackPanel Grid.Column="0" Orientation="Vertical"
+                    HorizontalAlignment="Left" VerticalAlignment="Center" Margin="32,0,0,0">
+            <TextBlock  Name ="Username" Margin="0,0,0,20" FontFamily="Algerian" FontSize="30" Text="{Binding GameModel.Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock  FontSize="30" FontFamily="Algerian" Text="{Binding GameModel.CurrentLevelString}"/>
+        </StackPanel>
+
+        <Image Grid.ColumnSpan="2"
+               Width="120" Height="120"
+               HorizontalAlignment="Left" VerticalAlignment="Center"
+               Name="ProfileImage"
+               Source="{Binding GameModel.ImagePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="219,0,0,0"/>
+
+        <Image Grid.Column="0" Grid.RowSpan="4"
+                Width="160" Height="280" 
+               HorizontalAlignment="Center" VerticalAlignment="Top"
+               Source="{Binding GameModel.HangmanImage}" Margin="0,215,0,0"/>
+
+        <StackPanel Grid.ColumnSpan="2" Grid.Row="4" Orientation="Horizontal"
+                    HorizontalAlignment="Left" VerticalAlignment="Center">
+            <TextBlock  Margin="50,0,0,0" FontSize="30" FontFamily="Algerian" Text="{Binding GameModel.CurrentCategory}"/>
+            <TextBlock  Margin="20,0,0,0" FontSize="30" FontFamily="Algerian" Text="{Binding GameModel.CurrentHiddenWord}"/>
+        </StackPanel>
+
+        <TextBlock HorizontalAlignment="Left" Margin="493,0,0,62" FontFamily="Algerian" FontSize="30" Text="Time left:" VerticalAlignment="Bottom" Grid.Column="1" Grid.Row="4"/>
+        <TextBlock Name="TimeLeft" HorizontalAlignment="Left" Margin="676,0,0,62" FontFamily="Algerian" FontSize="30" Text="{Binding TimeLeft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Bottom" Grid.Column="1" Grid.Row="4 "/>
+        <TextBlock Name="TimerOn" HorizontalAlignment="Left" Margin="782,0,0,10" FontFamily="Algerian" FontSize="30" Text="{Binding TimerOn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Bottom" Grid.Column="1" Grid.Row="4 " Visibility="Hidden"/>
+    </Grid>
+</Window>

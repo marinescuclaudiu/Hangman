@@ -1,0 +1,54 @@
+﻿<Window x:Class="Hangman.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Hangman.ViewModel"
+        mc:Ignorable="d"
+        Title="Hangman" Height="900" Width="1600" >
+    <Window.Background>
+        <SolidColorBrush Color="#279484"></SolidColorBrush>
+    </Window.Background>
+
+    <Window.DataContext>
+        <local:StartPageViewModel/>
+    </Window.DataContext>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="60*"/>
+            <ColumnDefinition Width="40*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80*"/>
+            <RowDefinition Height="20*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.ColumnSpan="2" Text="Welcome to Hangman!" Margin="0,58,0,0" FontSize="30" FontFamily="Algerian" Width="368"/>
+
+        <ListBox Grid.Column="0" Margin="75,140,75,10" ItemsSource="{Binding Users}" SelectedItem="{Binding CurrentUser}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Username}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Image Grid.Column="1"
+               Margin="64,0,0,0" Width="230" Height="230"
+               HorizontalAlignment="Left" VerticalAlignment="Center"
+               Source="{Binding CurrentUser.ImagePath}"/>
+
+        <StackPanel Grid.ColumnSpan="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
+            <Button Width="80" Height="30" Command="{Binding NewUserCommand}">New User</Button>
+            <Button Width="90" Height="30" Margin="170,0,0,0" Command="{Binding DeleteUserCommand}" IsEnabled="{Binding IsDeleteUserButtonActive}">
+                Delete User
+            </Button>
+            <Button Width="70" Height="30" Margin="170,0,0,0" Command="{Binding PlayCommand}" IsEnabled="{Binding IsPlayButtonActive}">
+                Play
+            </Button>
+            <Button Width="75" Height="30" Margin="170,0,0,0" Command="{Binding CancelCommand}">Cancel</Button>
+        </StackPanel>
+    </Grid>
+</Window>
